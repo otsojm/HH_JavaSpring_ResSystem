@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Edit reservation</title>
+<link type="text/css" rel="stylesheet" href="../css/bootstrap.min.css"
+	th:href="@{../css/bootstrap.min.css}" />
+<link rel="icon" type="image/png"
+	href="https://www.bupa.pro/app/webroot/img/book.ico" />
+</head>
+<body>
+	<div>
+		<h1>Edit reservation</h1>
+
+		<form th:object="${game}" th:action="@{../editsave}" action="#"
+			method="post">
+
+			<div class="col-6">
+				<label for="title">Gametype</label>
+			</div>
+			<div class="col-6">
+				<input type="text" id="gametype" th:field="*{gametype}"
+					class="form-control" required />
+
+			</div>
+
+			<div class="col-6" style="padding-top: 25px">
+				<label for="time">Time</label>
+			</div>
+			<div class="col-6">
+				<input type="datetime-local" id="time" th:field="*{time}"
+					class="form-control" required />
+			</div>
+
+			<div class="col-6" style="padding-top: 25px">
+				<label for="court">Court</label> <input type="text" id="court"
+					th:field="*{court}" class="form-control" required />
+			</div>
+
+			<div class="col-6" style="padding-top: 25px">
+				<label for="customertype">Customer type</label>
+			</div>
+			<div class="col-6">
+				<input type="text" id="customertype" th:field="*{customertype}"
+					class="form-control" />
+			</div>
+
+			<div class="col-6" style="padding-top: 25px">
+				<label for="price">Price (€)</label> <input type="number" min="0.00"
+					max="9999.99" step="0.01" value="0.00" id="price"
+					th:field="*{price}" class="form-control" />
+			</div>
+
+			<div class="col-sm" style="padding-top: 25px">
+				<input type="submit" value="Add resevartion" class="btn btn-success">
+				<a href="gamelist" class="btn btn-primary">Back</a>
+			</div>
+		</form>
+
+	</div>
+
+
+</body>
+</html>

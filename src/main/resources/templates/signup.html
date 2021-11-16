@@ -1,0 +1,46 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Sign up</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link type="text/css" rel="stylesheet"
+	th:href="@{css/bootstrap.min.css}" />
+<link rel="icon" type="image/png"
+	href="https://www.bupa.pro/app/webroot/img/book.ico" />
+</head>
+<body>
+	<div class="container">
+		<h1>Sign up</h1>
+		<div class="col-md-4">
+			<form th:object="${signupform}" th:action="@{/saveuser}" action="#"
+				method="post">
+				<div>
+					<label>Username :<input type="text" th:field="*{username}"
+						class="form-control" /></label>
+					<p th:if="${#fields.hasErrors('username')}" th:errors="*{username}">Username
+						Error</p>
+				</div>
+				<label>Email :<input type="email" th:field="*{email}"
+					class="form-control" /></label>
+				<p th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Username
+					Error</p>
+				<div>
+					<label>Password :<input type="password"
+						th:field="*{password}" class="form-control" /></label>
+					<p th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Password
+						Error</p>
+				</div>
+				<div>
+					<label>Re-type Password: <input type="password"
+						th:field="*{passwordCheck}" class="form-control" /></label>
+					<p th:if="${#fields.hasErrors('passwordCheck')}"
+						th:errors="*{passwordCheck}">Password Match Error</p>
+				</div>
+
+				<input type="submit" class="btn btn-primary" value="Register user"></input>
+			</form>
+			<br> <a class="btn btn-info" th:href="@{/login}">Back to login</a>
+		</div>
+	</div>
+</body>
+</html>
