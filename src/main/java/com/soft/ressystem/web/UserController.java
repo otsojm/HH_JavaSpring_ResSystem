@@ -1,7 +1,7 @@
 package com.soft.ressystem.web;
 
 import com.soft.ressystem.domain.SignupForm;
-import com.soft.ressystem.domain.Users;
+import com.soft.ressystem.domain.User;
 import com.soft.ressystem.domain.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import java.io.IOException;
+
 import javax.validation.Valid;
 
 @Controller
@@ -41,7 +43,8 @@ public class UserController {
 	// Save the new user
 
 	@PostMapping("/saveuser")
-	public String save(@Valid @ModelAttribute("signupform") SignupForm signupForm, BindingResult bindingResult) {
+	public String save(@Valid @ModelAttribute("signupform") SignupForm signupForm, BindingResult bindingResult)
+			throws IOException {
 
 		if (!bindingResult.hasErrors()) {
 
@@ -51,11 +54,22 @@ public class UserController {
 				BCryptPasswordEncoder bc = new BCryptPasswordEncoder();
 				String hashPwd = bc.encode(pwd);
 
-				Users newUser = new Users();
+				User newUser = new User();
 				newUser.setPasswordHash(hashPwd);
 				newUser.setUsername(signupForm.getUsername());
 				newUser.setRole("USER");
 				newUser.setEmail(signupForm.getEmail());
+				newUser.setCustomertype(signupForm.getCustomertype());
+
+				if (signupForm.getCustomertype().equals("Adult")) {
+
+					newUser.setPricecategory(8.0);
+
+				} else {
+
+					newUser.setPricecategory(6.0);
+
+				}
 
 				if (uRepo.findUserByUsername(signupForm.getUsername()) == null) {
 

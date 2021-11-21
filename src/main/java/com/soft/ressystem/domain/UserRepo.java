@@ -2,8 +2,7 @@
 
 import org.springframework.data.mongodb.repository.MongoRepository;
 
-public interface UserRepo extends MongoRepository<Users, Long> {
+public interface UserRepo extends MongoRepository<User, Long> {
 	
-	Users findUserByUsername(String username);
-
+	User findUserByUsername(String username);
 }

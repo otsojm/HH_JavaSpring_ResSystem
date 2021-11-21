@@ -9,11 +9,11 @@
 	href="https://www.bupa.pro/app/webroot/img/book.ico" />
 </head>
 <body>
-	<div class="container">
+	<div class="container" style="margin: 10px;">
 		<h1>Sign up</h1>
 		<div class="col-md-4">
 			<form th:object="${signupform}" th:action="@{/saveuser}" action="#"
-				method="post">
+				enctype="multipart/form-data" method="post">
 				<div>
 					<label>Username :<input type="text" th:field="*{username}"
 						class="form-control" /></label>
@@ -36,10 +36,21 @@
 					<p th:if="${#fields.hasErrors('passwordCheck')}"
 						th:errors="*{passwordCheck}">Password Match Error</p>
 				</div>
-
+				<div class="col-6">
+					<label for="customertype">Customer type</label> <select
+						id="customertype" th:field="*{customertype}" class="form-control">
+						<option value="Adult">Adult</option>
+						<option value="Child">Child</option>
+					</select>
+				</div>
+				<div>
+					<label>Student or senior? Provide verification
+						documentation (pdf) after registration for discount.</label>
+				</div>
 				<input type="submit" class="btn btn-primary" value="Register user"></input>
 			</form>
-			<br> <a class="btn btn-info" th:href="@{/login}">Back to login</a>
+			<br> <a class="btn btn-info" th:href="@{/login}">Back to
+				login</a>
 		</div>
 	</div>
 </body>

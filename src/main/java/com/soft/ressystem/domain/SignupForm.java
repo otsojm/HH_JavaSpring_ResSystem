@@ -15,13 +15,14 @@ public class SignupForm {
 	@NotEmpty
 	@Size(min = 4, max = 30)
 	private String passwordCheck = "";
-	
+
 	@NotEmpty
 	@Size(min = 5, max = 30)
 	private String email = "";
 
 	@NotEmpty
-	private String role = "USER";
+	@Size(min = 5, max = 30)
+	private String customertype = "";
 
 	public String getUsername() {
 		return username;
@@ -47,20 +48,19 @@ public class SignupForm {
 		this.passwordCheck = passwordCheck;
 	}
 
-	public String getRole() {
-		return role;
-	}
-
-	public void setRole(String role) {
-		this.role = role;
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 	public String getEmail() {
 		return email;
 	}
 
-	public void setEmail(String email) {
-		this.email = email;
+	public void setCustomertype(String customertype) {
+		this.customertype = customertype;
 	}
 
+	public String getCustomertype() {
+		return customertype;
+	}
 }

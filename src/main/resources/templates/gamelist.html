@@ -10,7 +10,7 @@
 	href="https://cdn2.iconfinder.com/data/icons/activity-5/50/1F3C0-basketball-512.png" />
 </head>
 <body>
-	<div>
+	<div style="margin: 10px;">
 		<table>
 			<tr>
 				<td><form th:action="@{/logout}" method="post">
@@ -31,12 +31,13 @@
 				<th></th>
 				<th></th>
 			</tr>
+
 			<tr th:each="game: ${games}">
 				<td th:text="${game.gametype}"></td>
 				<td th:text="${game.time}"></td>
 				<td th:text="${game.court}"></td>
-				<td th:text="${game.customertype}">
-				</td><td th:text="${game.price}"></td>
+				<td th:text="${game.customertype}"></td>
+				<td th:text="${game.pricecategory}"></td>
 
 				<td><a th:href="@{/edit/{id}(id=${game.id})}"
 					sec:authorize="hasAuthority('ADMIN')" class="btn btn-info">Edit</a></td>
@@ -52,14 +53,25 @@
 					<td th:text="${weather}"></td>
 				</tr>
 			</table>
-			</div>
-			<div style="margin: 10px;">
-				<i>Nummipallo on asukaskortteli As Oy Nummen asukkaille 24/7
-					auki oleva pallopelihalli.</i><br> <i>Myös ulkokenttiä löytyy.
-					Nummipallossa sinun on mahdollista pelata tennistä, sulkapallo ja
-					squashia.</i><br> <i>Jokaiselle lajille on kaksi sisä- ja
-					ulkokenttää. Vuorot ovat tunnin pituisia. Siivoathan jälkesi. Ongelmatilanteissa ole yhteydessö admin@nummipallo.fi</i>
-			</div>
+
+			<i>Nummipallo on asukaskortteli As Oy Nummen asukkaille 24/7 auki
+				oleva pallopelihalli.</i><br> <i>Myös ulkokenttiä löytyy.
+				Nummipallossa sinun on mahdollista pelata tennistä, sulkapallo ja
+				squashia.</i><br> <i>Jokaiselle lajille on sisä- ja
+				ulkokenttä. Vuorot ovat tunnin pituisia. Siivoathan jälkesi.
+				Ongelmatilanteissa ole yhteydessä admin@nummipallo.fi</i>
+		</div>
+		<div style="margin: 10px;">
+			<form th:object="${document}" th:action="@{../upload}" action="#"
+				enctype="multipart/form-data" method="post">
+
+				<label>Student, child or senior? Add verification
+					documentation (pdf) for discount.</label> <input type="file"
+					th:field="*{file}" class="form-control-file"> <input
+					style="margin: 10px;" type="submit" class="btn btn-primary"
+					value="Send" />
+			</form>
+		</div>
 	</div>
 </body>
 </html>

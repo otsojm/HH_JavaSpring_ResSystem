@@ -9,14 +9,15 @@ public class Game {
 	@Id
 	String id;
 
-	private String gametype, customertype, time;
-	public String court;
-	private double price;
+	private String gametype, customertype, time, court, username;
+
+	private Double pricecategory;
 
 	public Game() {
 	}
 
-	public Game(String id, String gametype, String time, String customertype, double price, String court) {
+	public Game(String id, String gametype, String time, String customertype, Double pricecategory, String court,
+			String username) {
 
 		this.id = id;
 
@@ -26,9 +27,11 @@ public class Game {
 
 		this.customertype = customertype;
 
-		this.price = price;
+		this.pricecategory = pricecategory;
 
 		this.court = court;
+
+		this.username = username;
 
 	}
 
@@ -72,14 +75,14 @@ public class Game {
 		this.customertype = customertype;
 	}
 
-	public double getPrice() {
+	public Double getPricecategory() {
 
-		return price;
+		return pricecategory;
 	}
 
-	public void setPrice(double price) {
+	public void setPricecategory(Double pricecategory) {
 
-		this.price = price;
+		this.pricecategory = pricecategory;
 	}
 
 	public String getCourt() {
@@ -92,9 +95,19 @@ public class Game {
 		this.court = court;
 	}
 
+	public String getUsername() {
+
+		return username;
+	}
+
+	public void setUsername(String username) {
+
+		this.username = username;
+	}
+
 	@Override
 	public String toString() {
 		return "Id=" + id + ", Gametype=" + gametype + "Court=" + court + ", Time=" + time + ", Customertype="
-				+ customertype + ", Price=" + price;
+				+ customertype + ", Pricecategory=" + pricecategory + ", Username=" + username;
 	}
 }
