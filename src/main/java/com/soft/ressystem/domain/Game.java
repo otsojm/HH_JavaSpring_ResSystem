@@ -16,10 +16,8 @@ public class Game {
 	public Game() {
 	}
 
-	public Game(String id, String gametype, String time, String customertype, Double pricecategory, String court,
+	public Game(String gametype, String time, String customertype, Double pricecategory, String court,
 			String username) {
-
-		this.id = id;
 
 		this.gametype = gametype;
 
@@ -107,7 +105,7 @@ public class Game {
 
 	@Override
 	public String toString() {
-		return "Id=" + id + ", Gametype=" + gametype + "Court=" + court + ", Time=" + time + ", Customertype="
+		return "Id=" + id + ", Gametype=" + gametype + ", Court=" + court + ", Time=" + time + ", Customertype="
 				+ customertype + ", Pricecategory=" + pricecategory + ", Username=" + username;
 	}
 }

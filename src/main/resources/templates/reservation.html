@@ -6,7 +6,7 @@
 <link type="text/css" rel="stylesheet" href="css/bootstrap.min.css"
 	th:href="@{css/bootstrap.min.css}" />
 <link rel="icon" type="image/png"
-	href="https://www.bupa.pro/app/webroot/img/book.ico" />
+	href="https://cdn2.iconfinder.com/data/icons/activity-5/50/1F3C0-basketball-512.png" />
 </head>
 <body>
 	<div style="margin: 10px;">
@@ -15,16 +15,16 @@
 		<form th:object="${game}" th:action="@{save}" action="#" method="post">
 
 			<div class="col-6">
-				<input id="username" name="username" type="text" th:field="*{username}"
-					class="form-control" disabled/>
+				<input id="username" name="username" type="text"
+					th:field="*{username}" class="form-control" disabled />
 			</div>
 
 			<div class="col-6" style="padding-top: 25px">
 				<label for="gametype">Gametype</label> <select id="gametype"
 					th:field="*{gametype}" class="form-control">
 					<option value="Tennis">Tennis</option>
-					<option value="Squash">Squash</option>
 					<option value="Badminton">Badminton</option>
+					<option value="Squash">Squash</option>
 				</select>
 			</div>
 
@@ -37,8 +37,15 @@
 			</div>
 
 			<div class="col-6" style="padding-top: 25px">
-				<label for="court">Court</label> <input type="text" id="court"
-					th:field="*{court}" class="form-control" required />
+				<label for="court">Court</label> <select id="court"
+					th:field="*{court}" class="form-control">
+					<option value="Tennis Indoor">Tennis Indoor</option>
+					<option value="Tennis Outdoor">Tennis Outdoor</option>
+					<option value="Tennis Indoor">Badminton Indoor</option>
+					<option value="Tennis Outdoor">Badminton Outdoor</option>
+					<option value="Tennis Indoor">Squash Indoor</option>
+					<option value="Tennis Outdoor">Squash Outdoor</option>
+				</select>
 			</div>
 
 			<div class="col-6" style="padding-top: 25px">
@@ -46,13 +53,14 @@
 			</div>
 			<div class="col-6">
 				<input type="text" id="customertype" th:field="*{customertype}"
-					class="form-control" disabled/>
+					class="form-control" disabled />
 			</div>
 
 			<div class="col-6" style="padding-top: 25px">
 				<label for="pricecategory">Price (€)</label> <input type="number"
 					min="0.00" max="9999.99" step="0.01" value="0.00"
-					id="pricecategory" th:field="*{pricecategory}" class="form-control" disabled/>
+					id="pricecategory" th:field="*{pricecategory}" class="form-control"
+					disabled />
 			</div>
 
 			<div class="col-sm" style="padding-top: 25px">

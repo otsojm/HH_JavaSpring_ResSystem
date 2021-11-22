@@ -9,9 +9,8 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @SpringBootApplication
-@ComponentScan(basePackages = { "com" })
-@EntityScan(basePackages = { "com" })
-@EnableJpaRepositories(basePackages = { "com" })
+@ComponentScan({ "com.soft.ressystem" })
+@EntityScan("ccom.soft.ressystem")
 public class RessystemApplication {
 
 	public static void main(String[] args) {
@@ -19,13 +18,9 @@ public class RessystemApplication {
 
 	}
 
-	private WeatherInfo weather = new WeatherInfo();
-
 	@Bean
-	public CommandLineRunner bookDemo() {
+	public CommandLineRunner reservationSystem() {
 		return (args) -> {
-
-			weather.getWeather();
 
 		};
 	}

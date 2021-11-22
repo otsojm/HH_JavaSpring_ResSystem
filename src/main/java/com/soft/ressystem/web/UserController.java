@@ -2,14 +2,17 @@ package com.soft.ressystem.web;
 
 import com.soft.ressystem.domain.SignupForm;
 import com.soft.ressystem.domain.User;
-import com.soft.ressystem.domain.UserRepo;
+import com.soft.ressystem.domain.UserRepository;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import java.io.IOException;
@@ -20,7 +23,9 @@ import javax.validation.Valid;
 public class UserController {
 
 	@Autowired
-	private UserRepo uRepo;
+	public UserRepository uRepo;
+
+	String userId = "";
 
 	// Login page
 
@@ -55,7 +60,7 @@ public class UserController {
 				String hashPwd = bc.encode(pwd);
 
 				User newUser = new User();
-				newUser.setPasswordHash(hashPwd);
+				newUser.setPassword(hashPwd);
 				newUser.setUsername(signupForm.getUsername());
 				newUser.setRole("USER");
 				newUser.setEmail(signupForm.getEmail());
@@ -79,18 +84,64 @@ public class UserController {
 					bindingResult.rejectValue("username", "err.username", "Username already exist!");
 					return "signup";
 				}
-			}
-
-			else {
+			} else {
 				bindingResult.rejectValue("passwordCheck", "err.passCheck", "Password does not match!");
 				return "signup";
 			}
-		}
+		} else {
 
-		else {
 			return "signup";
 
 		}
 		return "redirect:/login";
+	}
+
+	// Delete user
+
+	@GetMapping("/udelete/{id}")
+	@PreAuthorize("hasRole('ADMIN')")
+	public String deleteUser(@PathVariable("id") String id) {
+
+		uRepo.deleteById(id);
+
+		return "redirect:/gamelist";
+	}
+
+	// Edit user
+
+	@GetMapping("/uedit/{id}")
+	@PreAuthorize("hasRole('ADMIN')")
+	public String editUser(@PathVariable("id") String id, Model model) {
+
+		model.addAttribute("user", uRepo.findById(id));
+
+		userId = id;
+
+		return "edituser";
+	}
+
+	@PostMapping("/ueditsave")
+	@PreAuthorize("hasRole('ADMIN')")
+	public String saveEdit(User user) {
+
+		if (user.getPassword().isBlank()) {
+
+			user.setPassword(uRepo.findUserByUsername(user.getUsername()).getPassword());
+
+		} else {
+
+			String pwd = user.getPassword();
+			BCryptPasswordEncoder bc = new BCryptPasswordEncoder();
+			String hashPwd = bc.encode(pwd);
+
+			user.setPassword(hashPwd);
+
+		}
+
+		uRepo.deleteById(userId);
+
+		uRepo.save(user);
+
+		return "redirect:/gamelist";
 	}
 }

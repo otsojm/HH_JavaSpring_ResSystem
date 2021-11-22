@@ -7,7 +7,7 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface VerDocumentRepo extends MongoRepository<VerDocument, String> {
+public interface VerificationDocumentRepository extends MongoRepository<VerificationDocument, String> {
 
-	List<VerDocument> findByFileContaining(Binary file);
+	List<VerificationDocument> findByFileContaining(Binary file);
 }

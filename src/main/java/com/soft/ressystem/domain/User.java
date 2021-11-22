@@ -45,11 +45,11 @@ public class User {
 		this.username = username;
 	}
 
-	public String getPasswordHash() {
+	public String getPassword() {
 		return password;
 	}
 
-	public void setPasswordHash(String password) {
+	public void setPassword(String password) {
 		this.password = password;
 	}
 
@@ -87,7 +87,7 @@ public class User {
 
 	@Override
 	public String toString() {
-		return "Id=" + id + ", Username=" + username + ", Passwordhash=" + password + ", Role=" + role + ", Customertype="
+		return "Id=" + id + ", Username=" + username + ", Password=" + password + ", Role=" + role + ", Customertype="
 				+ customertype + ", Pricecategory=" + pricecategory + ", Email=" + email;
 	}
 }

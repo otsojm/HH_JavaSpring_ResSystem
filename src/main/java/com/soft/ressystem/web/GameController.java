@@ -15,31 +15,31 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.soft.ressystem.WeatherInfo;
-import com.soft.ressystem.InfoUser;
-import com.soft.ressystem.domain.VerDocumentRepo;
-import com.soft.ressystem.domain.VerDocument;
+import com.soft.ressystem.UserInfo;
+import com.soft.ressystem.domain.VerificationDocumentRepository;
+import com.soft.ressystem.domain.VerificationDocument;
 import com.soft.ressystem.domain.Game;
-import com.soft.ressystem.domain.GameRepo;
+import com.soft.ressystem.domain.GameRepository;
 import com.soft.ressystem.domain.User;
-import com.soft.ressystem.domain.UserRepo;
+import com.soft.ressystem.domain.UserRepository;
 
 @Controller
 public class GameController implements ErrorController {
 
 	@Autowired
-	public GameRepo gRepo;
+	public GameRepository gRepo;
 
 	@Autowired
-	public VerDocumentRepo dRepo;
+	public VerificationDocumentRepository dRepo;
 
 	@Autowired
-	public UserRepo uRepo;
+	public UserRepository uRepo;
 
 	public WeatherInfo weather = new WeatherInfo();
 
 	public String gameresId = "";
 
-	public InfoUser infouser = new InfoUser();
+	public UserInfo infouser = new UserInfo();
 
 	// Error page
 
@@ -60,7 +60,7 @@ public class GameController implements ErrorController {
 
 		model.addAttribute("weathers", weather.getWeather());
 
-		VerDocument document = new VerDocument();
+		VerificationDocument document = new VerificationDocument();
 
 		model.addAttribute("document", document);
 
@@ -99,6 +99,8 @@ public class GameController implements ErrorController {
 				}
 			}
 			model.addAttribute("games", games);
+
+			model.addAttribute("users", uRepo.findAll());
 		}
 		return "gamelist";
 	}
@@ -106,7 +108,7 @@ public class GameController implements ErrorController {
 	// Add new
 
 	@RequestMapping("/reservation")
-	public String newRes(Model model) {
+	public String newReservation(Model model) {
 
 		String username = infouser.getUsername();
 
@@ -130,9 +132,7 @@ public class GameController implements ErrorController {
 	// Save new
 
 	@PostMapping("/save")
-	public String saveRes(Game game) {
-
-		System.out.println("Hei");
+	public String saveReservation(Game game) {
 
 		String username = infouser.getUsername();
 
@@ -154,6 +154,7 @@ public class GameController implements ErrorController {
 	// Save edit
 
 	@PostMapping("/editsave")
+	@PreAuthorize("hasRole('ADMIN')")
 	public String saveEdit(Game game) {
 
 		gRepo.deleteById(gameresId);
@@ -166,8 +167,7 @@ public class GameController implements ErrorController {
 	// Delete
 
 	@GetMapping("/delete/{id}")
-	@PreAuthorize("hasRole('ADMIN')")
-	public String deleteRes(@PathVariable("id") String gameId, Model model) {
+	public String deleteReservation(@PathVariable("id") String gameId) {
 
 		gRepo.deleteById(gameId);
 
@@ -178,7 +178,7 @@ public class GameController implements ErrorController {
 
 	@GetMapping("/edit/{id}")
 	@PreAuthorize("hasRole('ADMIN')")
-	public String editRes(@PathVariable("id") String gameId, Model model) {
+	public String editReservation(@PathVariable("id") String gameId, Model model) {
 
 		model.addAttribute("game", gRepo.findById(gameId));
 

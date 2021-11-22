@@ -6,17 +6,17 @@ import org.bson.types.Binary;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection = "documents")
-public class VerDocument {
+public class VerificationDocument {
 
 	@Id
 	private String id;
 
 	private Binary file;
 
-	public VerDocument() {
+	public VerificationDocument() {
 	}
 
-	public VerDocument(Binary file) {
+	public VerificationDocument(Binary file) {
 
 		this.file = file;
 

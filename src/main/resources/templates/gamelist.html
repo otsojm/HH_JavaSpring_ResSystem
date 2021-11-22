@@ -18,7 +18,10 @@
 					</form></td>
 				<td th:inline="text"><h2>Hello
 						[[${#httpServletRequest.remoteUser}]],</h2></td>
-				<td><h2>these are your reservations.</h2></td>
+				<td sec:authorize="hasAuthority('USER')"><h2>these are
+						your reservations.</h2></td>
+				<td sec:authorize="hasAuthority('ADMIN')"><h2>these are
+						the reservations.</h2></td>
 			</tr>
 		</table>
 		<table class="table table-striped">
@@ -26,6 +29,7 @@
 				<th>Game type</th>
 				<th>Time</th>
 				<th>Court</th>
+				<th>Customer</th>
 				<th>Customer type</th>
 				<th>Price (€)</th>
 				<th></th>
@@ -36,18 +40,19 @@
 				<td th:text="${game.gametype}"></td>
 				<td th:text="${game.time}"></td>
 				<td th:text="${game.court}"></td>
+				<td th:text="${game.username}"></td>
 				<td th:text="${game.customertype}"></td>
 				<td th:text="${game.pricecategory}"></td>
 
 				<td><a th:href="@{/edit/{id}(id=${game.id})}"
 					sec:authorize="hasAuthority('ADMIN')" class="btn btn-info">Edit</a></td>
 				<td><a th:href="@{/delete/{id}(id=${game.id})}"
-					sec:authorize="hasAuthority('ADMIN')" class="btn btn-danger">Delete</a></td>
+					class="btn btn-danger">Delete</a></td>
 			</tr>
 		</table>
-		<a style="margin: 10px;" href="/reservation" class="btn btn-success">Add
-			reservation</a>
-		<div style="margin: 10px;">
+		<a style="margin: 10px;" sec:authorize="hasAuthority('USER')"
+			href="/reservation" class="btn btn-success">Add reservation</a>
+		<div style="margin: 10px;" sec:authorize="hasAuthority('USER')">
 			<table>
 				<tr th:each="weather: ${weathers}">
 					<td th:text="${weather}"></td>
@@ -57,11 +62,11 @@
 			<i>Nummipallo on asukaskortteli As Oy Nummen asukkaille 24/7 auki
 				oleva pallopelihalli.</i><br> <i>Myös ulkokenttiä löytyy.
 				Nummipallossa sinun on mahdollista pelata tennistä, sulkapallo ja
-				squashia.</i><br> <i>Jokaiselle lajille on sisä- ja
-				ulkokenttä. Vuorot ovat tunnin pituisia. Siivoathan jälkesi.
-				Ongelmatilanteissa ole yhteydessä admin@nummipallo.fi</i>
+				squashia.</i><br> <i>Jokaiselle lajille on sisä- ja ulkokenttä.
+				Vuorot ovat tunnin pituisia. Siivoathan jälkesi. Ongelmatilanteissa
+				ole yhteydessä admin@nummipallo.fi</i>
 		</div>
-		<div style="margin: 10px;">
+		<div style="margin: 10px;" sec:authorize="hasAuthority('USER')">
 			<form th:object="${document}" th:action="@{../upload}" action="#"
 				enctype="multipart/form-data" method="post">
 
@@ -71,6 +76,42 @@
 					style="margin: 10px;" type="submit" class="btn btn-primary"
 					value="Send" />
 			</form>
+		</div>
+		<div sec:authorize="hasAuthority('ADMIN')">
+			<h2>These are the users.</h2>
+			<table class="table table-striped">
+				<tr>
+					<th>Username</th>
+					<th>Email</th>
+					<th>Role</th>
+					<th>Customer type</th>
+					<th>Price category</th>
+					<th></th>
+					<th></th>
+				</tr>
+
+				<tr th:each="user: ${users}">
+					<td th:text="${user.username}"></td>
+					<td th:text="${user.email}"></td>
+					<td th:text="${user.role}"></td>
+					<td th:text="${user.customertype}"></td>
+					<td th:text="${user.pricecategory}"></td>
+
+					<td><a th:href="@{/uedit/{id}(id=${user.id})}"
+						sec:authorize="hasAuthority('ADMIN')" class="btn btn-info">Edit</a></td>
+					<td><a th:href="@{/udelete/{id}(id=${user.id})}"
+						sec:authorize="hasAuthority('ADMIN')" class="btn btn-danger">Delete</a></td>
+				</tr>
+			</table>
+			<a style="margin: 10px;" sec:authorize="hasAuthority('USER')"
+				href="/reservation" class="btn btn-success">Add reservation</a>
+			<div style="margin: 10px;" sec:authorize="hasAuthority('USER')">
+				<table>
+					<tr th:each="weather: ${weathers}">
+						<td th:text="${weather}"></td>
+					</tr>
+				</table>
+			</div>
 		</div>
 	</div>
 </body>

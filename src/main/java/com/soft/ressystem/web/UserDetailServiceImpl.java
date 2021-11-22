@@ -8,14 +8,18 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import com.soft.ressystem.domain.UserRepo;
+import com.soft.ressystem.domain.UserRepository;
 
 @Service
 public class UserDetailServiceImpl implements UserDetailsService {
-	private final UserRepo uRepo;
-
+	
 	@Autowired
-	public UserDetailServiceImpl(UserRepo userRepository) {
+	public UserRepository uRepo;
+
+	public UserDetailServiceImpl() {
+	}
+	
+	public UserDetailServiceImpl(UserRepository userRepository) {
 		uRepo = userRepository;
 	}
 
@@ -23,7 +27,7 @@ public class UserDetailServiceImpl implements UserDetailsService {
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		
 		User curruser = uRepo.findUserByUsername(username);
-		UserDetails user = new org.springframework.security.core.userdetails.User(username, curruser.getPasswordHash(),
+		UserDetails user = new org.springframework.security.core.userdetails.User(username, curruser.getPassword(),
 				AuthorityUtils.createAuthorityList(curruser.getRole()));
 		return user;
 		
