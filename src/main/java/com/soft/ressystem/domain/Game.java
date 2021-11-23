@@ -7,16 +7,16 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class Game {
 
 	@Id
-	String id;
+	public String id;
 
-	private String gametype, customertype, time, court, username;
+	private String gametype, customertype, time, username;
 
 	private Double pricecategory;
 
 	public Game() {
 	}
 
-	public Game(String gametype, String time, String customertype, Double pricecategory, String court,
+	public Game(String gametype, String time, String customertype, Double pricecategory,
 			String username) {
 
 		this.gametype = gametype;
@@ -26,8 +26,6 @@ public class Game {
 		this.customertype = customertype;
 
 		this.pricecategory = pricecategory;
-
-		this.court = court;
 
 		this.username = username;
 
@@ -82,17 +80,7 @@ public class Game {
 
 		this.pricecategory = pricecategory;
 	}
-
-	public String getCourt() {
-
-		return court;
-	}
-
-	public void setCourt(String court) {
-
-		this.court = court;
-	}
-
+	
 	public String getUsername() {
 
 		return username;
@@ -105,7 +93,7 @@ public class Game {
 
 	@Override
 	public String toString() {
-		return "Id=" + id + ", Gametype=" + gametype + ", Court=" + court + ", Time=" + time + ", Customertype="
+		return " Id=" + id + ", Gametype=" + gametype + ", Time=" + time + ", Customertype="
 				+ customertype + ", Pricecategory=" + pricecategory + ", Username=" + username;
 	}
 }

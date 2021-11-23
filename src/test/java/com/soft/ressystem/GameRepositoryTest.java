@@ -20,7 +20,7 @@ public class GameRepositoryTest {
 	@Autowired
 	private GameRepository gRepo;
 
-	Game game = new Game("Tennis", "2022-12-11T00:56", "Adult", 8.0, "Tennis Indoor", "user");
+	Game game = new Game("Tennis Indoor", "2022-12-11T00:56", "Adult", 8.0, "user");
 
 	@Test
 	public void createNewGame() {

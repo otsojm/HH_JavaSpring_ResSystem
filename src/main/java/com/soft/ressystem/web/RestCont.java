@@ -71,7 +71,6 @@ public class RestCont implements ErrorController {
 			game.setTime(Game.getTime());
 			game.setCustomertype(Game.getCustomertype());
 			game.setPricecategory(Game.getPricecategory());
-			game.setCourt(Game.getCourt());
 			game.setUsername(Game.getUsername());
 
 			return gRepo.save(game);

@@ -28,7 +28,6 @@
 			<tr>
 				<th>Game type</th>
 				<th>Time</th>
-				<th>Court</th>
 				<th>Customer</th>
 				<th>Customer type</th>
 				<th>Price (€)</th>
@@ -39,7 +38,6 @@
 			<tr th:each="game: ${games}">
 				<td th:text="${game.gametype}"></td>
 				<td th:text="${game.time}"></td>
-				<td th:text="${game.court}"></td>
 				<td th:text="${game.username}"></td>
 				<td th:text="${game.customertype}"></td>
 				<td th:text="${game.pricecategory}"></td>

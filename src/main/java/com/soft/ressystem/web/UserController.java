@@ -27,6 +27,8 @@ public class UserController {
 
 	String userId = "";
 
+	String userPassword = "";
+
 	// Login page
 
 	@GetMapping("/login")
@@ -117,6 +119,8 @@ public class UserController {
 
 		userId = id;
 
+		userPassword = uRepo.findById(id).get().getPassword();
+
 		return "edituser";
 	}
 
@@ -124,19 +128,9 @@ public class UserController {
 	@PreAuthorize("hasRole('ADMIN')")
 	public String saveEdit(User user) {
 
-		if (user.getPassword().isBlank()) {
+		user.setUsername(uRepo.findById(userId).get().getUsername());
 
-			user.setPassword(uRepo.findUserByUsername(user.getUsername()).getPassword());
-
-		} else {
-
-			String pwd = user.getPassword();
-			BCryptPasswordEncoder bc = new BCryptPasswordEncoder();
-			String hashPwd = bc.encode(pwd);
-
-			user.setPassword(hashPwd);
-
-		}
+		user.setPassword(userPassword);
 
 		uRepo.deleteById(userId);
 

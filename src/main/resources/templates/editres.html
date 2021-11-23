@@ -12,41 +12,42 @@
 	<div style="margin: 10px;">
 		<h1>Edit reservation</h1>
 
-		<form th:object="${game}" th:action="@{../editsave}" action="#"
+		<form th:object="${game}" th:action="@{../save}" action="#"
 			method="post">
 
+
+			<p th:if="${#fields.hasErrors('gametype')}" th:errors="*{gametype}">Edit
+				Error</p>
+
 			<div class="col-6" style="padding-top: 25px">
-				<label for="id">Id</label>
+				<label for="id">Reservation Id</label> <input id="id" name="id"
+					type="text" th:field="*{id}" class="form-control" disabled />
 			</div>
-			<div class="col-6">
-				<input id="id" name="id" type="text" th:field="*{id}"
+			<div class="col-6" style="padding-top: 25px">
+				<label for="id">Username</label> <input id="username"
+					name="username" type="text" th:field="*{username}"
 					class="form-control" disabled />
 			</div>
 
 			<div class="col-6" style="padding-top: 25px">
-				<label for="gametype">Gametype</label> <select id="gametype"
+				<label for="gametype">Game type</label> <select id="gametype"
 					th:field="*{gametype}" class="form-control">
-					<option value="Tennis">Tennis</option>
-					<option value="Squash">Squash</option>
-					<option value="Badminton">Badminton</option>
+					<option value="Tennis Indoor">Tennis Indoor</option>
+					<option value="Tennis Outdoor">Tennis Outdoor</option>
+					<option value="Squash Indoor">Squash Indoor</option>
+					<option value="Squash Outdoor">Tennis</option>
+					<option value="Badminton Indoor">Badminton Indoor</option>
+					<option value="Badminton Outdoor">Badminton Outdoor</option>
 				</select>
 			</div>
 
 			<div class="col-6" style="padding-top: 25px">
-				<label for="time">Time</label>
-			</div>
-			<div class="col-6">
-				<input type="datetime-local" id="time" th:field="*{time}"
-					class="form-control" required />
+				<label for="time">Time</label> <input type="datetime-local"
+					id="time" th:field="*{time}" class="form-control" required />
 			</div>
 
 			<div class="col-6" style="padding-top: 25px">
-				<label for="court">Court</label> <input type="text" id="court"
-					th:field="*{court}" class="form-control" required />
-			</div>
-
-			<div class="col-6" style="padding-top: 25px">
-				<label for="customertype">Customertype</label> <select
+				<label for="customertype">Customer type</label> <select
 					id="customertype" th:field="*{customertype}" class="form-control">
 					<option value="Adult">Adult</option>
 					<option value="Child">Child</option>
@@ -65,9 +66,20 @@
 				<a href="/gamelist" class="btn btn-primary">Back</a>
 			</div>
 		</form>
+		<div style="padding-top: 25px">
+			<h1>Existing reservations</h1>
+			<table class="table table-striped">
+				<tr>
+					<th>Game type</th>
+					<th>Time</th>
+				</tr>
 
+				<tr th:each="game: ${games}">
+					<td th:text="${game.gametype}"></td>
+					<td th:text="${game.time}"></td>
+				</tr>
+			</table>
+		</div>
 	</div>
-
-
 </body>
 </html>
