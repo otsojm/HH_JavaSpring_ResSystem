@@ -15,7 +15,7 @@
 	<name>ressystem</name>
 	<description>Final task fo Server Programming course</description>
 	<properties>
-		<java.version>11</java.version>
+		<java.version>16</java.version>
 	</properties>
 	<dependencies>
 		<dependency>
